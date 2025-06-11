@@ -182,3 +182,57 @@ body {
 .btn-delete:active {
   transform: scale(0.93);
 }
+
+.btn-fetch {
+  padding: 0.8rem 2rem;
+  background: linear-gradient(90deg, #30cfd0, #330867);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(48,207,208,0.25);
+}
+
+.btn-fetch:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(90deg, #330867, #30cfd0);
+}
+
+.btn-fetch:active {
+  transform: scale(0.96);
+}
+
+.btn-main {
+  padding: 0.8rem 2rem;
+  background: linear-gradient(90deg, #30cfd0, #330867);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(48, 207, 208, 0.25);
+}
+
+.btn-main:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(90deg, #330867, #30cfd0);
+}
+
+.btn-main:active {
+  transform: scale(0.96);
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem; /* Відстань між кнопками */
+  justify-content: center;
+  margin-bottom: 28px;
+  align-items: center;
+}
+

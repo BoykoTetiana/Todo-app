@@ -16,12 +16,11 @@ export default function TodoForm({ addTodo }) {
     <form className="todo-form" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Напиши справу..."
+        placeholder="Write the case..."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button type="submit">Додати</button>
+      <button type="submit" className="btn-main">Додати</button>
     </form>
   );
 }
-
