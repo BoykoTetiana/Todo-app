@@ -236,3 +236,34 @@ body {
   align-items: center;
 }
 
+/* Світла тема */
+body:not(.dark-theme) {
+  background: linear-gradient(135deg, #f0f0f0, #e4ecf7);
+}
+
+body:not(.dark-theme) .App {
+  background: #ffffff;
+  color: #222;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+body:not(.dark-theme) .todo-item {
+  background: linear-gradient(90deg, #f5f8ff, #e4ecf7);
+  color: #111;
+}
+
+body:not(.dark-theme) .todo-item span.done {
+  color: #999;
+}
+
+body:not(.dark-theme) .todo-form input {
+  background: #f9f9f9;
+  color: #222;
+}
+
+body:not(.dark-theme) .todo-form input::placeholder {
+  color: #666;
+}
+
+

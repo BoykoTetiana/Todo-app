@@ -9,9 +9,23 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("darkMode");
+    return savedTheme === "true"; // перетворюємо рядок у булеве значення
+  });
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+    if (darkMode) {
+      document.body.classList.add("dark-theme");
+    } else {
+      document.body.classList.remove("dark-theme");
+    }
+  }, [darkMode]);
 
   const addTodo = (text) => {
     const newTodo = { id: Date.now(), text, done: false };
@@ -28,27 +42,29 @@ export default function App() {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
- const fetchTodos = async () => {
-  try {
-    const res = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=5");
-    const data = await res.json();
-
-    const maxId = todos.length > 0 ? Math.max(...todos.map(t => t.id)) : 0;
-
-    const formattedTodos = data.map((todo, index) => ({
-      id: maxId + index + 1,
-      text: todo.title,
-      done: false, // <- тут примусово ставимо false, щоб всі були не виконані
-    }));
-
-    setTodos((prev) => [...prev, ...formattedTodos]);
-  } catch (err) {
-    console.error("Fetch failed", err);
-  }
-};
+  const fetchTodos = async () => {
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=5");
+      const data = await res.json();
+      const maxId = todos.length > 0 ? Math.max(...todos.map(t => t.id)) : 0;
+      const formattedTodos = data.map((todo, index) => ({
+        id: maxId + index + 1,
+        text: todo.title,
+        done: false,
+      }));
+      setTodos((prev) => [...prev, ...formattedTodos]);
+    } catch (err) {
+      console.error("Fetch failed", err);
+    }
+  };
 
   return (
     <div className="App">
+      <div className="button-row">
+        <button className="btn-main" onClick={() => setDarkMode(prev => !prev)}>
+          {darkMode ? '☀️ Світла тема' : '🌙 Темна тема'}
+        </button>
+      </div>
       <h1>My TODO List</h1>
       <TodoForm addTodo={addTodo} />
       <TodoList
@@ -60,4 +76,5 @@ export default function App() {
     </div>
   );
 }
+
 
