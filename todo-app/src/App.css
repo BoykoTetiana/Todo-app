@@ -34,6 +34,7 @@ body {
 .todo-form {
   display: flex;
   gap: 1rem;
+  align-items: center;
   margin-bottom: 28px;
 }
 
@@ -266,4 +267,37 @@ body:not(.dark-theme) .todo-form input::placeholder {
   color: #666;
 }
 
+/* Розташування перемикача у правому верхньому куті */
+.theme-switch {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+}
 
+/* Стиль кнопки */
+.theme-button {
+  background-color: rgb(188, 189, 186);
+  border: none;
+  padding: 0.4rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Зміна розміру при наведенні */
+.theme-button:hover {
+  transform: scale(1.1);
+}
+
+/* Іконка */
+.theme-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* Для темної теми — інше тло кнопки */
+body.dark-theme .theme-button {
+  background-color: rgba(237, 245, 204, 0.945);
+}

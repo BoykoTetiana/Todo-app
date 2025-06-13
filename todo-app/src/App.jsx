@@ -60,13 +60,23 @@ export default function App() {
 
   return (
     <div className="App">
-      <div className="button-row">
-        <button className="btn-main" onClick={() => setDarkMode(prev => !prev)}>
-          {darkMode ? '☀️ Світла тема' : '🌙 Темна тема'}
-        </button>
-      </div>
+      <div className="theme-switch">
+  <button className="theme-button" onClick={() => setDarkMode(prev => !prev)}>
+    <img
+      src={
+        darkMode
+          ? "https://img.icons8.com/?size=100&id=YPTOhlU4qO2D&format=png&color=000000"  // Сонце
+          : "https://img.icons8.com/?size=100&id=i8GwAL8zqypN&format=png&color=000000" // Місяць
+      }
+      alt="theme icon"
+      className="theme-icon"
+    />
+  </button>
+</div>
+
       <h1>My TODO List</h1>
-      <TodoForm addTodo={addTodo} />
+      <TodoForm addTodo={addTodo} fetchTodos={fetchTodos} />
+
       <TodoList
         todos={todos}
         toggleDone={toggleDone}
