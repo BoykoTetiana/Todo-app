@@ -65,8 +65,8 @@ export default function App() {
     <img
       src={
         darkMode
-          ? "https://img.icons8.com/?size=100&id=YPTOhlU4qO2D&format=png&color=000000"  // Сонце
-          : "https://img.icons8.com/?size=100&id=i8GwAL8zqypN&format=png&color=000000" // Місяць
+          ? "https://img.icons8.com/?size=100&id=88644&format=png&color=000000"  // Сонце
+          : "https://img.icons8.com/?size=100&id=bv1XgSVyIgCb&format=png&color=000000" // Місяць
       }
       alt="theme icon"
       className="theme-icon"
