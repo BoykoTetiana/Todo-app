@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import RegisterForm from './components/RegisterPage';
 import './App.css';
 
 export default function App() {
@@ -11,8 +12,10 @@ export default function App() {
 
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("darkMode");
-    return savedTheme === "true"; // перетворюємо рядок у булеве значення
+    return savedTheme === "true";
   });
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Додали стан входу
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -58,23 +61,34 @@ export default function App() {
     }
   };
 
+  // 🧠 Якщо не залогінений — показуємо форму реєстрації
+  if (!isLoggedIn) {
+    return (
+      <div className="App">
+        <RegisterForm onRegisterSuccess={() => setIsLoggedIn(true)} />
+      </div>
+    );
+  }
+
+  // 🔓 Якщо вже залогінився — показуємо тудушки
   return (
     <div className="App">
       <div className="theme-switch">
-  <button className="theme-button" onClick={() => setDarkMode(prev => !prev)}>
-    <img
-      src={
-        darkMode
-          ? "https://img.icons8.com/?size=100&id=88644&format=png&color=000000"  // Сонце
-          : "https://img.icons8.com/?size=100&id=bv1XgSVyIgCb&format=png&color=000000" // Місяць
-      }
-      alt="theme icon"
-      className="theme-icon"
-    />
-  </button>
-</div>
+        <button className="theme-button" onClick={() => setDarkMode(prev => !prev)}>
+          <img
+            src={
+              darkMode
+                ? "https://img.icons8.com/?size=100&id=88644&format=png&color=000000"
+                : "https://img.icons8.com/?size=100&id=bv1XgSVyIgCb&format=png&color=000000"
+            }
+            alt="theme icon"
+            className="theme-icon"
+          />
+        </button>
+      </div>
 
       <h1>My TODO List</h1>
+
       <TodoForm addTodo={addTodo} fetchTodos={fetchTodos} />
 
       <TodoList
@@ -86,5 +100,3 @@ export default function App() {
     </div>
   );
 }
-
-
