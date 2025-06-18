@@ -302,7 +302,7 @@ body.dark-theme .theme-button {
   background-color: rgba(237, 245, 204, 0.945);
 }
 
-.register-form {
+.register {
   max-width: 400px;
   margin: 40px auto;
   background: linear-gradient(135deg, rgba(28, 32, 40, 0.92), rgba(36, 41, 54, 0.92));
@@ -317,7 +317,7 @@ body.dark-theme .theme-button {
   backdrop-filter: blur(8px);
 }
 
-.register-form h2 {
+.register h2 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #4a90e2;
@@ -329,7 +329,7 @@ body.dark-theme .theme-button {
 }
 
 
-.register-form input {
+.register input {
   width: 100%;
   padding: 0.85rem 1.2rem;
   margin: 0.5rem 0;
@@ -344,15 +344,15 @@ body.dark-theme .theme-button {
 }
 
 /* Текст placeholder світлий, щоб видно було на темному фоні */
-.register-form input::placeholder {
+.register input::placeholder {
   color: #a0a9b8;
   font-weight: 400;
   transition: color 0.3s ease;
 }
 
 /* Коли інпут у фокусі — фон світлий, текст темний */
-.register-form input:focus,
-.register-form input:not(:placeholder-shown) {
+.register input:focus,
+.register input:not(:placeholder-shown) {
   background-color: #fff;
   color: #222;
   border-color: #357abd;
@@ -361,14 +361,14 @@ body.dark-theme .theme-button {
 }
 
 /* Коли фон став світлим, placeholder робиться менш помітним */
-.register-form input:focus::placeholder,
-.register-form input:not(:placeholder-shown)::placeholder {
+.register input:focus::placeholder,
+.register input:not(:placeholder-shown)::placeholder {
   color: #888;
 }
 
 
 
-.register-form button {
+.register button {
   width: 100%;
   padding: 0.85rem;
   background: linear-gradient(90deg, #4a90e2, #5ad1e6);
@@ -383,16 +383,16 @@ body.dark-theme .theme-button {
   margin-top: 1rem;
 }
 
-.register-form button:hover {
+.register button:hover {
   background: linear-gradient(90deg, #5ad1e6, #4a90e2);
   transform: translateY(-2px) scale(1.05);
 }
 
-.register-form button:active {
+.register button:active {
   transform: scale(0.96);
 }
 
-.register-form .message {
+.register .message {
   margin-top: 1rem;
   font-size: 0.95rem;
   color: #ff6b6b; /* яскраво-червоний для помилок */

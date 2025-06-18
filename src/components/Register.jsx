@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function RegisterForm({ onRegisterSuccess }) {
+export default function Register({ onRegisterSuccess }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthDate, setBirthDate] = useState('');
@@ -9,7 +9,7 @@ export default function RegisterForm({ onRegisterSuccess }) {
   const [message, setMessage] = useState('');
 
   const validatePassword = (password) => {
-    const re = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{6,}$/;
+    const re = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
     return re.test(password);
   };
 
@@ -17,21 +17,25 @@ export default function RegisterForm({ onRegisterSuccess }) {
     e.preventDefault();
 
     if (!validatePassword(password)) {
-      setMessage('Пароль повинен містити мінімум 6 символів, одну велику літеру, одну цифру та один спецсимвол');
+      setMessage('Пароль має містити мінімум 6 символів, одну велику літеру, одну цифру та один спецсимвол');
       return;
     }
 
-    const userData = { firstName, lastName, birthDate, email };
-
     try {
-      // Імітація виклику API
-      // Тут можна викликати свій бекенд, якщо потрібно
-      // await fetch(...) 
+      const res = await fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, birthDate, email, password }),
+      });
 
-      // Зберігаємо дані користувача в localStorage
-      localStorage.setItem('user', JSON.stringify(userData));
+      const data = await res.json();
 
-      setMessage('Реєстрація успішна! Дані збережено локально.');
+      if (!res.ok) {
+        setMessage(data.message || 'Помилка реєстрації');
+        return;
+      }
+
+      setMessage('Реєстрація пройшла успішно! Тепер увійдіть.');
       
       // Очистити форму
       setFirstName('');
@@ -40,6 +44,7 @@ export default function RegisterForm({ onRegisterSuccess }) {
       setEmail('');
       setPassword('');
 
+      // Викликати callback для переходу в логін
       if (onRegisterSuccess) onRegisterSuccess();
 
     } catch (error) {
@@ -97,4 +102,3 @@ export default function RegisterForm({ onRegisterSuccess }) {
     </form>
   );
 }
-

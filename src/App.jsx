@@ -1,8 +1,37 @@
 import React, { useState, useEffect } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import RegisterForm from './components/RegisterPage';
+import Register from './components/Register';
+import Login from './components/Login';
 import './App.css';
+
+function AuthPage({ onLoginSuccess }) {
+  const [mode, setMode] = useState('login'); // 'login' чи 'register'
+
+  return (
+    <div style={{ maxWidth: 400, margin: '50px auto', padding: 20, border: '1px solid #ccc', borderRadius: 8 }}>
+      <div style={{ marginBottom: 20, display: 'flex', justifyContent: 'space-around' }}>
+        <button 
+          onClick={() => setMode('login')} 
+          style={{ background: mode === 'login' ? '#4caf50' : '#eee', padding: '10px 20px', border: 'none', cursor: 'pointer' }}
+        >
+          Увійти
+        </button>
+        <button 
+          onClick={() => setMode('register')} 
+          style={{ background: mode === 'register' ? '#4caf50' : '#eee', padding: '10px 20px', border: 'none', cursor: 'pointer' }}
+        >
+          Зареєструватись
+        </button>
+      </div>
+
+      {mode === 'login' 
+  ? <Login onLoginSuccess={onLoginSuccess} /> 
+  : <Register onRegisterSuccess={() => setMode('login')} />}
+
+    </div>
+  );
+}
 
 export default function App() {
   const [todos, setTodos] = useState(() => {
@@ -15,7 +44,7 @@ export default function App() {
     return savedTheme === "true";
   });
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Додали стан входу
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -61,16 +90,14 @@ export default function App() {
     }
   };
 
-  // 🧠 Якщо не залогінений — показуємо форму реєстрації
   if (!isLoggedIn) {
     return (
       <div className="App">
-        <RegisterForm onRegisterSuccess={() => setIsLoggedIn(true)} />
+        <AuthPage onLoginSuccess={() => setIsLoggedIn(true)} />
       </div>
     );
   }
 
-  // 🔓 Якщо вже залогінився — показуємо тудушки
   return (
     <div className="App">
       <div className="theme-switch">
@@ -100,3 +127,4 @@ export default function App() {
     </div>
   );
 }
+
