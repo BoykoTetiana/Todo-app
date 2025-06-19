@@ -4,6 +4,7 @@ export default function Register({ onRegisterSuccess }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthDate, setBirthDate] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -25,7 +26,7 @@ export default function Register({ onRegisterSuccess }) {
       const res = await fetch('http://localhost:5000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, birthDate, email, password }),
+        body: JSON.stringify({ firstName, lastName, birthDate, username, email, password }),
       });
 
       const data = await res.json();
@@ -36,15 +37,15 @@ export default function Register({ onRegisterSuccess }) {
       }
 
       setMessage('Реєстрація пройшла успішно! Тепер увійдіть.');
-      
-      // Очистити форму
+
+      // Очистити поля
       setFirstName('');
       setLastName('');
       setBirthDate('');
+      setUsername('');
       setEmail('');
       setPassword('');
 
-      // Викликати callback для переходу в логін
       if (onRegisterSuccess) onRegisterSuccess();
 
     } catch (error) {
@@ -53,7 +54,7 @@ export default function Register({ onRegisterSuccess }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="register-form">
+    <form onSubmit={handleSubmit} className="auth-form">
       <h2>Реєстрація</h2>
 
       <input
@@ -74,9 +75,16 @@ export default function Register({ onRegisterSuccess }) {
 
       <input
         type="date"
-        placeholder="Дата народження"
         value={birthDate}
         onChange={e => setBirthDate(e.target.value)}
+        required
+      />
+
+      <input
+        type="text"
+        placeholder="Логін"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
         required
       />
 
@@ -102,3 +110,4 @@ export default function Register({ onRegisterSuccess }) {
     </form>
   );
 }
+

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Login({ onLoginSuccess }) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
@@ -12,20 +12,18 @@ export default function Login({ onLoginSuccess }) {
       const res = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setMessage(data.message || 'Помилка логіну');
+        setMessage(data.message || 'Помилка входу');
         return;
       }
 
-      setMessage('Успішний вхід!');
-      localStorage.setItem('token', data.token);
-
-      onLoginSuccess();
+      setMessage('Вхід успішний!');
+      if (onLoginSuccess) onLoginSuccess();
 
     } catch (error) {
       setMessage('Помилка мережі');
@@ -33,14 +31,14 @@ export default function Login({ onLoginSuccess }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
+    <form onSubmit={handleSubmit} className="auth-form">
       <h2>Увійти</h2>
 
       <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
+        type="text"
+        placeholder="Логін"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
         required
       />
 
@@ -58,3 +56,4 @@ export default function Login({ onLoginSuccess }) {
     </form>
   );
 }
+

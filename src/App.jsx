@@ -9,26 +9,25 @@ function AuthPage({ onLoginSuccess }) {
   const [mode, setMode] = useState('login'); // 'login' чи 'register'
 
   return (
-    <div style={{ maxWidth: 400, margin: '50px auto', padding: 20, border: '1px solid #ccc', borderRadius: 8 }}>
-      <div style={{ marginBottom: 20, display: 'flex', justifyContent: 'space-around' }}>
+    <div className="auth-container">
+      <div className="toggle-switch">
         <button 
-          onClick={() => setMode('login')} 
-          style={{ background: mode === 'login' ? '#4caf50' : '#eee', padding: '10px 20px', border: 'none', cursor: 'pointer' }}
+          className={`toggle-btn ${mode === 'login' ? 'active' : ''}`} 
+          onClick={() => setMode('login')}
         >
           Увійти
         </button>
         <button 
-          onClick={() => setMode('register')} 
-          style={{ background: mode === 'register' ? '#4caf50' : '#eee', padding: '10px 20px', border: 'none', cursor: 'pointer' }}
+          className={`toggle-btn ${mode === 'register' ? 'active' : ''}`} 
+          onClick={() => setMode('register')}
         >
           Зареєструватись
         </button>
       </div>
 
-      {mode === 'login' 
-  ? <Login onLoginSuccess={onLoginSuccess} /> 
-  : <Register onRegisterSuccess={() => setMode('login')} />}
-
+      {mode === 'login'
+        ? <Login onLoginSuccess={onLoginSuccess} />
+        : <Register onRegisterSuccess={() => setMode('login')} />}
     </div>
   );
 }
@@ -127,4 +126,5 @@ export default function App() {
     </div>
   );
 }
+
 
